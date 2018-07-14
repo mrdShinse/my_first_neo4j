@@ -4,7 +4,9 @@ gem 'rake'
 gem 'hanami',       '~> 1.2'
 gem 'hanami-model', '~> 1.2'
 
+# database
 gem 'mysql2'
+gem 'neo4j'
 
 gem 'slim'
 
@@ -17,6 +19,8 @@ end
 
 group :test, :development do
   gem 'dotenv', '~> 2.0'
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :test do
