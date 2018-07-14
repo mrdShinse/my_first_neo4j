@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  my_first_neo4j_app:
+    build: containers/hanami
+    container_name: my_first_neo4j_app
+    environment:
+      HANAMI_ENV: 'development'
+    ports:
+      - '2300:2300'
+    volumes:
+      - my_first_neo4j-sync:/var/www:rw
+    volumes_from:
+      - bundle
+    links:
+      - neo4j
+
+  neo4j:
+    image: neo4j:3.4.1
+    container_name: my_first_neo4j
+    ports:
+      - '7687:7687'
+      - '7474:7474'
+
+  bundle:
+    image: busybox:latest
+    container_name: my_first_neo4j_bundle
+    volumes:
+      - /bundle
+    command: /bin/sh
+
+# For docker-sync
+volumes:
+  my_first_neo4j-sync:
+    external: true
