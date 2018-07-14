@@ -1,0 +1,3 @@
+project=my_first_neo4j
+test=rspec
+template=slim
