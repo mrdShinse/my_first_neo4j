@@ -26,5 +26,10 @@ module MyFirstNeo4j
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # neo4j
+    # http://neo4jrb.io/#getting-started
+    config.neo4j.session_type = :server_db
+    config.neo4j.session_path = ENV['NEO4J_URL'] || 'http://localhost:7475'
   end
 end
