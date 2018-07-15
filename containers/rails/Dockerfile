@@ -24,7 +24,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # Port
-EXPOSE 2300
+EXPOSE 3000
 
 # Always delete pid
-CMD bash -c "bundle; bundle exec hanami s"
+CMD bash -c "bundle; rm -f tmp/pids/server.pid && bundle exec rails s"

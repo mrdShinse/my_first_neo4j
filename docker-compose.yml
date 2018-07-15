@@ -2,18 +2,31 @@ version: '2'
 
 services:
   my_first_neo4j_app:
-    build: containers/hanami
+    build: containers/rails
     container_name: my_first_neo4j_app
     environment:
       HANAMI_ENV: 'development'
     ports:
-      - '2300:2300'
+      - '3000:3000'
     volumes:
       - my_first_neo4j-sync:/var/www:rw
     volumes_from:
       - bundle
     links:
       - neo4j
+
+  db:
+    build: containers/mysql
+    container_name: my_first_neo4j_db
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: 'my_first_neo4j_development'
+      MYSQL_USER: 'my_first_neo4j'
+      MYSQL_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    volumes_from:
+      - datastore
 
   neo4j:
     image: neo4j:3.4.1
@@ -27,6 +40,15 @@ services:
     container_name: my_first_neo4j_bundle
     volumes:
       - /bundle
+    command: /bin/sh
+
+  datastore:
+    image: busybox:latest
+    container_name: my_first_neo4j_datastore
+    volumes:
+      - /var/lib/mysql
+      - /var/lib/postgresql/data
+      - /datastore
     command: /bin/sh
 
 # For docker-sync
